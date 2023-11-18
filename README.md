@@ -33,7 +33,7 @@ docker container run
 - The 3rd row and 5th row show the status.
 - The 4th row is `unique digest` based on the layers from which teh image is built. 
 #### `The result`: 
-```
+```bash
 Hello from Docker!
 This message shows that your installation appears to be working correctly.
 
@@ -56,36 +56,39 @@ For more examples and ideas, visit:
  https://docs.docker.com/get-started/
 ```
 - 1. try with: 
-```
+```bash
  $ docker container run -it ubuntu bash
 ```
 - 2. when container not running, we have to run it manually and access to shell a docker container using: 
 
-```
+```bash
 docker ps -a
 docker container start [CONTAINER ID]
 docker exec -it [CONTAINER ID] bash
+or docker start -i [CONTAINER ID | NAME]
 ```
+`-it` or `-i` to make sure that we can interact with the container. 
+
 - 3. quit: 
 
-```
+```bash
 exit
 ```
 - 4. checking is that `Docker` which docker still running: 
 
-```
+```bash
 docker ps or docker ps -a
 ```
 
 - 5. stop `Docker` running by using: 
 
-```
+```bash
 docker container stop [CONTAINER ID]
 ```
 
 - 6. on `Docker container shell` may dont have all required models. So can install it mannually
 
-```
+```bash
 apt-get update
 apt-get install vim
 ```
@@ -97,5 +100,10 @@ FROM  confluent/postgres-bw:0.1
 RUN ["apt-get", "update"]
 RUN ["apt-get", "install", "-y", "vim"]
 ```
+- 7. we can try other commands that ubuntu image might be able to execute
 
+```bash
+docker container run --rm ubuntu ls
+```
+with the `ls` command will list all of the files in the directory and the `--rm` flag will remove the container after execution
 

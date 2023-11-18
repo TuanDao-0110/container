@@ -1,0 +1,39 @@
+1.run ubun container
+
+docker start -i fervent_galileo
+
+1.1 we can check what container we have by using:
+
+docker ps 
+
+or all conatiner by using: 
+
+docker ps -a
+
+2. create file: 
+
+mkdir -p  /usr/src/app
+
+3. create file we can go directly there: 
+
+cd  /usr/src/app
+and run 
+
+"nano vim " to create a file, but remember to update and download "vim" and "nano" models
+
+by using: 
+
+" apt-get update" 
+"apt-get install vim | nano"
+
+
+4. run quit:
+
+exit
+
+ 
+
+
+
+
+
