@@ -121,3 +121,21 @@ apt install -y nodejs
 ```bash
 node index.js
 ```
+
+
+### `4. Start create new docker image from container: `
+
+- 1. we can now create docker image from container we which already many installed `models` and `folder/file`
+
+
+```bash
+docker commit [CONTAINER-NAME|ID] [NEW-IMAGE-NAME]
+```
+
+- 2. we can now have a new image. Then we can run it docker container image:
+
+```bash
+docker run -it [NEW-IMAGE-NAME] bash
+root@4d1b322e1aff:/# node /usr/src/app/index.js
+```
+
