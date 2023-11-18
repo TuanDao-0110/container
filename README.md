@@ -139,3 +139,21 @@ docker run -it [NEW-IMAGE-NAME] bash
 root@4d1b322e1aff:/# node /usr/src/app/index.js
 ```
 
+- 3. we can set up the name for container: 
+
+```bash
+docker container run -it --name [CONTAINER-NAME] [image] bash
+```
+
+- 4. or, in this case we want to run `node` model on our container shell interface, we can use `Node image` from "hub.docker.com":
+
+```bash
+docker container run -it --name [CONTAINER] node:16 bash
+```
+
+- 5. Copy file from local machine to container, when we already have this `file` on our local machine:
+
+```bash
+docker container cp ./index.js [CONTAINER-NAME]:/usr/.../index.js
+```
+
