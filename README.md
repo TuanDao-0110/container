@@ -107,3 +107,17 @@ docker container run --rm ubuntu ls
 ```
 with the `ls` command will list all of the files in the directory and the `--rm` flag will remove the container after execution
 
+
+### `3. Install node packages:`
+
+- 1. Install node packages on ubuntu container shell interface: 
+
+```bash
+curl -sL https://deb.nodesource.com/setup_16.x | bash
+apt install -y nodejs
+```
+- 2. now we have node model on our container then we can run `node`
+
+```bash
+node index.js
+```
