@@ -1,0 +1,13 @@
+1. install "node" on "ubuntu" shell interface
+
+curl -sL https://deb.nodesource.com/setup_16.x | bash
+apt install -y nodejs
+
+2. remember to access it first by using: 
+
+docker start -i [CONTAINER NAME]
+
+3. run: 
+
+node /usr/src/app/index.js
+
