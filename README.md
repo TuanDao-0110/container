@@ -157,3 +157,37 @@ docker container run -it --name [CONTAINER] node:16 bash
 docker container cp ./index.js [CONTAINER-NAME]:/usr/.../index.js
 ```
 
+
+
+# B. Building and Configuring environmens: 
+
+### `1. Dockerfile:`
+- we can create new image that contains the "hello, world" application. The tool for this is `Dockerfile`
+- `Dockerfile` is simple text that contains all the instruction for creating a image. 
+- Example for folder structure: 
+
+```
+├── index.js
+└── Dockerfile
+```
+
+- Dockerfile example:
+
+```Dockerfile
+FROM node:16
+
+WORKDIR /usr/src/app
+
+COPY ./index.js ./index.js
+
+CMD node index.js
+```
+
+- `docker build` command to build an image based on the `Dockerfile`:
+
+```bash
+docker build -t fs-hello-world .
+```
+   - flag`-t` will help to name the image
+   - with `.` a simple dot will mean the `Dockerfile` in this directory.
+- 
