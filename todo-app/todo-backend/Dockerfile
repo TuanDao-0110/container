@@ -1,8 +1,11 @@
 FROM node:16.17.0-bullseye-slim
 WORKDIR /usr/src/app
-
-COPY --chown=node:node . .
+## if there are no change on package*.json -> this mean that docker can reuse the cache for the npm install step
+COPY package*.json ./
 RUN npm ci
+# 
+COPY --chown=node:node . .
 ENV [REDIS_URL=localhost:6378,MONGO_URL=mongodb+srv://fullstack:12345@fullstack.bu2xfaj.mongodb.net/todos]
-USER node
+## with user: node, we can use it to run your application as low privileges
+USER node  
 CMD [ "npm", "start" ]

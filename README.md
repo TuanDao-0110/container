@@ -238,3 +238,8 @@ docker start -i [CONTAINER-NAME]
 - try to create as secure of an image as possible
 
 - try to create as small of a image as possible
+
+
+### `5.Different between ci and install:`
+- Furthermore, we only want to install production dependencies, but we don't want to update package-lock.json file. In this case, we can use `npm ci`command instead of `npm install`.
+
