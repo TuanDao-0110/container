@@ -207,3 +207,34 @@ node_modules
 Dockerfile
 ```
 
+### `3. Docker with express server:`
+- create full express server template: 
+```bash
+$ npx express-generator
+```
+- set up docker build: 
+- run the docker image and define the port: 
+
+```bash
+$ docker run -p 3123:3000 express-server
+```
+
+- The `-p` flag will inform Docker that a port form the host machine should be opened and directed to a port in the container
+
+- Kill the container in case we dont use it: 
+
+```bash
+docker kill [CONTAINER-NAME]
+```
+- run the container again
+
+```bash
+docker start -i [CONTAINER-NAME]
+```
+
+### `4.Dockerfile best practices`
+
+
+- try to create as secure of an image as possible
+
+- try to create as small of a image as possible
