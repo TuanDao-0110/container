@@ -190,4 +190,20 @@ docker build -t fs-hello-world .
 ```
    - flag`-t` will help to name the image
    - with `.` a simple dot will mean the `Dockerfile` in this directory.
-- 
+
+
+### `2. .dockerignore:`
+
+- we may accidentally move non-functional parts to the image with `COPY` instructions. --> this can be easily happen if we copy the `node_modules` directory into the image.
+
+- the easiest way to do is only copy files that you would push to `Github`
+
+- `.dockerignore` will solve the problem:
+
+```bash
+.dockerignore
+.gitignore
+node_modules
+Dockerfile
+```
+
