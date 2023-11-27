@@ -5,7 +5,10 @@ COPY package*.json ./
 RUN npm ci
 # 
 COPY --chown=node:node . .
-ENV [REDIS_URL=localhost:6378,MONGO_URL=mongodb+srv://fullstack:12345@fullstack.bu2xfaj.mongodb.net/todos]
+
+ENV NODE_ENV production
+
 ## with user: node, we can use it to run your application as low privileges
 USER node  
-CMD [ "npm", "start" ]
+
+CMD [ "node", "./bin/www" ]

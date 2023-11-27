@@ -13,6 +13,9 @@ app.use(logger('dev'));
 app.use(express.json());
 
 app.use('/', indexRouter);
+app.use('/testing', (_, res) => {
+    return res.send('not thing 12342')
+})
 app.use('/todos', todosRouter);
 
 module.exports = app;

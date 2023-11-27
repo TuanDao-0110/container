@@ -217,7 +217,9 @@ $ npx express-generator
 
 ```bash
 $ docker run -p 3123:3000 express-server
+$ docker run --rm -it -p 3000:3000 express-server
 ```
+- with `--rm` we can also 'remove' the container when we quit it. 
 
 - The `-p` flag will inform Docker that a port form the host machine should be opened and directed to a port in the container
 
@@ -232,7 +234,7 @@ docker kill [CONTAINER-NAME]
 docker start -i [CONTAINER-NAME]
 ```
 
-### `4.Dockerfile best practices`
+### `1.Dockerfile best practices`
 
 
 - try to create as secure of an image as possible
@@ -240,6 +242,69 @@ docker start -i [CONTAINER-NAME]
 - try to create as small of a image as possible
 
 
-### `5.Different between ci and install:`
+### `2.Different between ci and install:`
 - Furthermore, we only want to install production dependencies, but we don't want to update package-lock.json file. In this case, we can use `npm ci`command instead of `npm install`.
 
+### `3. Root user:`
+- Run with application as a user with lower privileges rather than application run as root user.
+- Running as root would create security risk if a container is compromised or if a malicious user gains access to it. 
+- Running as root would allow them to potentially execute harmful commands or access sensitive system files on the host
+- Additionally, running as root could cause accidental damage to the host system.
+- Base Node.js docker image has already a user called node
+
+```bash
+FROM node:19.7-alpine3.16
+
+RUN apk update && apk add --no-cache dumb-init
+
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+
+RUN npm install
+
+USER node
+
+COPY --chown=node:node ./src/ .
+
+CMD ["dumb-init", "node", "server.js"]
+```
+
+# C. Using Docker compose: 
+
+### `1. `
+
+### `2. volumes:`
+
+- Easy to back up and migrate.
+- `docker volume`: folder in physical host file system is mounted into the virtual file system of Docker.
+- It will make sure that data will not be lose in case of `container` is updated/ restart/ deleted.
+- Example of first types: 
+
+```bash
+docker run -v /home/mount/data:/var/lib/mysql/data 
+```
+- This shown how the host file will be mounted into the virtual file system. 
+-  Example of second types (Anoymous Volumes) :
+```bash
+docker run -v /var/lib/mysql/data 
+```
+- The mounted folder in host machine will be automatically created by "docker".
+- Example of Third types: 
+```bash
+docker run -v name:/var/lib/mysql/data 
+```
+- This the same type of anoymous volume, and docker will manage directories on the host machine.
+- Example how to use `volume` in node application: 
+- set up to build the container's image: 
+```bash
+$ docker build -t [CONTAINER_NAME] .
+```
+- Run container image:
+```bash
+$ docker run --rm -it -p [HOSTING_PORT]:[EXPOSE_PORT] --name [CONTAINER_NAME] -v [HOSTING_PATH_LOCATION]:[CONTAINER_WORDIR] [IMAGE_NAME]
+```
+### `3. Separate containers for each service:`
+
+- Each service include `backend/frontend/database/...` will designed in different container. and allow them communicate over the network. 
+- External Access database from tools outside the Docker Environment. 
