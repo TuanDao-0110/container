@@ -11,4 +11,4 @@ ENV NODE_ENV production
 ## with user: node, we can use it to run your application as low privileges
 USER node  
 
-CMD [ "node", "./bin/www" ]
+CMD ["npm", "start" ]

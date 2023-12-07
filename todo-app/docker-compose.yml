@@ -1,9 +1,9 @@
 version: '3.8'
 services:
+
     frontend:
         image: todo-frontend
         build: ./todo-frontend
-        restart: always
         expose:
             - 3000
         ports:
@@ -11,44 +11,44 @@ services:
         depends_on:
             - backend
         networks:
-            - app-network     
+            - app-network
     mongo:
         image: mongo
+        container_name: mongo
         ports:
-        - 3456:27017
+            - 3456:27017
         environment:
             MONGO_INITDB_ROOT_USERNAME: root
             MONGO_INITDB_ROOT_PASSWORD: example
-            MONGO_INITDB_DATABASE: todo-database     
+            MONGO_INITDB_DATABASE: the_database
+        volumes: 
+            - ./todo-backend/mongo/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+            - todoapp:/data/db
+        networks:
+            - app-network
     backend:
         image: todo-backend
         build: ./todo-backend
-        env_file:
-            - ./todo-backend/.env
+        env_file: ./todo-backend/.env
+        restart: always
         expose:
             - 3000
         ports:
             - 8000:3000
-        environment:
-            MONGO_URL: mongodb+srv://fullstack:12345@fullstack.bu2xfaj.mongodb.net/todos
+        volumes:
+            - /Users/nhattuandao/bclearn/part12-containers-applications/todo-app/todo-backend:/usr/src/app
+        links:
+            - mongo
         depends_on:
             - mongo
+        environment:
+            WAIT_HOSTS: mongo:3456
         networks:
             - app-network
-    # nginx:
-    #     image: nginx:1.13 # this will use the latest version of 1.13.x
-    #     ports:
-    #     - '80:80' # expose 80 on host and sent to 80 in container
-    #     depends_on: 
-    #     - frontend
-    #     - backend
-    #     - mongo
-    #     volumes:
-    #     - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+
+volumes:
+    todoapp:
 
 networks:
     app-network:
         driver: bridge
-
-volumes:
-    database

@@ -308,3 +308,19 @@ $ docker run --rm -it -p [HOSTING_PORT]:[EXPOSE_PORT] --name [CONTAINER_NAME] -v
 
 - Each service include `backend/frontend/database/...` will designed in different container. and allow them communicate over the network. 
 - External Access database from tools outside the Docker Environment. 
+### `4. Set up Mongo Container and also connect each container by network`
+
+### `5. Run and remove container by using docker compose:`
+
+- run docker compose
+```bash
+docker compose -f [DOCKER_FILE_NAME] up  
+```
+
+- remove docker container by using docker compose
+
+```bash
+docker compose -f [DOCKER_FILE_NAME] down
+```
+
+
